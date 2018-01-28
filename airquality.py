@@ -8,6 +8,8 @@ from threading import Timer
 import requests
 from bs4 import BeautifulSoup
 from numpy import interp
+import time
+
 
 NOX = [0, 1]
 NO = [2, 3]
@@ -16,11 +18,11 @@ NO2YLM = 40.0
 NO215LM = 200.0
 
 AREAS = {'Wells Rd': '1003', 'Bristol Depot': '1004', 'Parson St': '1005', 'Fishponds': '1010'}
+URL = "http://www.bristol.airqualitydata.com/cgi-bin/currentreadings.cgi?aq&"
+SITEURL = "http://www.bristol.airqualitydata.com/cgi-bin/sites.cgi?"
+GRAPHURL = "http://www.bristol.airqualitydata.com/cgi-bin/graphs.cgi"
 
-#WELLSRD = '1003'
-#BRISDEPOT = '1004'
-#PARSONST = '1005'
-#FISHPONDS = '1010'
+SAMPLE_TIME = 0
 
 
 class RepeatedTimer(object):
@@ -50,7 +52,7 @@ class RepeatedTimer(object):
 
 
 def get_air_quality(area='Wells Rd'):
-    url = "http://www.bristol.airqualitydata.com/cgi-bin/currentreadings.cgi?aq&"
+    url = URL
     url += AREAS[area]
 
     req = requests.get(url)
@@ -58,18 +60,9 @@ def get_air_quality(area='Wells Rd'):
     soup = BeautifulSoup(data, "html.parser")
 
     # readings have the units µg/m3
-    readings = soup.find_all(text=re.compile('µg/m3'))
-    #readings = soup.body.find_all(text=('Measurement'))
+    get_air_quality.readings = soup.find_all(text=re.compile('µg/m3'))
 
-    values = [float(x.split()[0]) for x in readings]
-
-    # grab the table on the page
-    #table = soup.find_all('table')[0]
-    # get the rows without headings (3 onwards)
-    #rows = table.find_all('tr')[3:]
-    # numerical get the data from the rows (1 onwards)
-    #tabdata = rows[0].find_all('td')[1:]
-    #date = str(tabdata[2].contents).strip('[]')
+    values = [float(x.split()[0]) for x in get_air_quality.readings]
 
     return values
 
@@ -80,12 +73,16 @@ def get_air_dict(area='WellsRd', test=False):
     else:
         values = get_air_quality(area)
 
+    if len(values) < 6:
+        values = [0] * 6
+
     return {'NOx15m': values[NOX[0]],
             'NOx24h': values[NOX[1]],
             'NO215m': values[NO2[0]],
             'NO224h': values[NO2[1]],
             'NO15m': values[NO[0]],
-            'NO24h': values[NO[1]]}
+            'NO24h': values[NO[1]],
+            'time': time.time()}
 
 
 def display_air_quality():

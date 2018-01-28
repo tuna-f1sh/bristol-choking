@@ -5,60 +5,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <!--<link rel="icon" href="../../../../favicon.ico">-->
+    {% if choking %}
+      <link rel="shortcut icon" href="{{ url_for('static', filename='favicon-choking.ico') }}">
+    {% else %}
+      <link rel="shortcut icon" href="{{ url_for('static', filename='favicon-ok.ico') }}">
+    {% endif %}
 
     <title>Is Bristol Choking?</title>
 
     <!-- Bootstrap core CSS -->
     <link href="static/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="static/album.css" rel="stylesheet">
+    <link href="static/style.css" rel="stylesheet">
   </head>
 
   <body>
 
-    <header>
-      <div class="collapse bg-dark" id="navbarHeader">
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-8 col-md-7 py-4">
-              <h4 class="text-white">About</h4>
-              <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
-            </div>
-            <div class="col-sm-4 offset-md-1 py-4">
-              <h4 class="text-white">Contact</h4>
-              <ul class="list-unstyled">
-                <li><a href="#" class="text-white">Follow on Twitter</a></li>
-                <li><a href="#" class="text-white">Like on Facebook</a></li>
-                <li><a href="#" class="text-white">Email me</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="navbar navbar-dark bg-dark box-shadow">
-        <div class="container d-flex justify-content-between">
-          <a href="#" class="navbar-brand d-flex align-items-center">
-            <!--<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>-->
-            <strong>Is Bristol Choking</strong>
-          </a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-        </div>
-      </div>
-    </header>
+    <!--<header>-->
+      <!--<div class="collapse bg-dark" id="navbarHeader">-->
+        <!--<div class="container">-->
+          <!--<div class="row">-->
+            <!--<div class="col-sm-8 col-md-7 py-4">-->
+              <!--<h4 class="text-white">About</h4>-->
+              <!--<p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>-->
+            <!--</div>-->
+            <!--<div class="col-sm-4 offset-md-1 py-4">-->
+              <!--<h4 class="text-white">Contact</h4>-->
+              <!--<ul class="list-unstyled">-->
+                <!--<li><a href="#" class="text-white">Follow on Twitter</a></li>-->
+                <!--<li><a href="#" class="text-white">Like on Facebook</a></li>-->
+                <!--<li><a href="#" class="text-white">Email me</a></li>-->
+              <!--</ul>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="navbar navbar-dark bg-dark box-shadow">-->
+        <!--<div class="container d-flex justify-content-between">-->
+          <!--<a href="#" class="navbar-brand d-flex align-items-center">-->
+            <!--[><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg><]-->
+            <!--<strong>Is Bristol Choking?</strong>-->
+          <!--</a>-->
+          <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">-->
+            <!--<span class="navbar-toggler-icon"></span>-->
+          <!--</button>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</header>-->
 
     <main role="main">
 
       <section class="jumbotron text-center">
         <div class="container">
-          <h1 class="jumbotron-heading">Album example</h1>
-          <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.</p>
+          {% if choking %}
+            <h1 class="jumbotron-heading">Yes</h1>
+            <p class="lead text-muted">
+            <!-- TODO - Add colour background when over 40, 200-->
+            {% for loc in areas %}
+              {{ loc }}{{ "," if not loop.last }}
+            {% endfor %}
+            {% if choking is gt(1) %}
+              are choking.
+            {% else %}
+              is choking.
+            {% endif %}
+            </p>
+          {% else %}
+            <h1 class="jumbotron-heading">No</h1>
+            <p class="lead text-muted">Bristol is doing OK</p>
+          {% endif %}
           <p>
-            <a href="#" class="btn btn-primary my-2">Main call to action</a>
-            <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+            <a href="#choking?" class="btn btn-primary my-2">Choking?</a>
+            <a href="#about" class="btn btn-secondary my-2">About</a>
           </p>
         </div>
       </section>
@@ -67,144 +88,188 @@
         <div class="container">
 
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
               <div class="card mb-4 box-shadow">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
-                <div class="card-body">
-                  <p class="card-text">Wells Road</p>
+                  <!--<a href='{{url[1]}}{{urlcodes['Wells Rd']}}'><img class="card-img-top" src="static/wellsrd-ok.png" alt="Card image cap"></a>-->
+                  {{
+                    googlemap(
+                        identifier="wells-rd-map",
+                        lat=51.42788,
+                        lng=-2.56374,
+                        zoom_control=False,
+                        maptype_control=False,
+                        scale_control=False,
+                        streetview_control=False,
+                        rotate_control=False,
+                        fullscreen_control=False,
+                        markers=[(51.42788, -2.56374)]
+                    )
+                  }}
+                <div class="card-body {% if 'Wells Rd' in areas %}bg-danger text-white{% endif %}">
+                  <h4 class="card-title">Wells Road</h4>
+                  <p class="card-text">15 minute NO&#8322 average: <b>{{ airdata['Wells Rd']['NO215m'] }} &#181g/m&#179</b></p>
+                  <p class="card-text {% if 'Wells Rd' in areas and over200['Wells Rd'] %} text-warning {% elif over200['Wells Rd'] %}text-danger{% endif %}" {% if over200['Wells Rd'] %}  data-toggle="tooltip" data-placement="bottom" title="Over the EU legal limit of 200 &#181g/m&#179 at a residential facade"{% endif %}>Peak average NO&#8322 value in 24 hour window: <b>{{ airdata['Wells Rd']['NO224h'] }} &#181g/m&#179</b>
+                  {% if over200['Wells Rd'] %}
+                    <span class="fa fa-exclamation-circle" aria-hidden="true"></span>
+                  {% endif %}
+                  </p>
+                </div>
+                <div class="card-footer">
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                      <a href='{{url[0]}}{{urlcodes['Wells Rd']}}' class="btn btn-sm btn-outline-secondary">Source</a>
+                      <a href='{{url[1]}}{{urlcodes['Wells Rd']}}' class="btn btn-sm btn-outline-secondary">Location</a>
                     </div>
-                    <small class="text-muted">9 mins</small>
+                    <small class="text-muted">Scraped {{ ((time - airdata['Wells Rd']['time']) // 60 % 60)|round|int }}  mins ago</small>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
               <div class="card mb-4 box-shadow">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
-                <div class="card-body">
-                  <p class="card-text">Parson Street</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
+                <!--<img class="card-img-top" src="static/bris-depot-ok.png" alt="Card image cap">-->
+                  {{
+                    googlemap(
+                        identifier="parson-st-map",
+                        lat=51.4326,
+                        lng=-2.6052,
+                        zoom_control=False,
+                        maptype_control=False,
+                        scale_control=False,
+                        streetview_control=False,
+                        rotate_control=False,
+                        fullscreen_control=False,
+                        markers=[(51.4326, -2.6052)]
+                    )
+                  }}
+                <div class="card-body {% if 'Parson St' in areas %}bg-danger text-white{% endif %}">
+                  <h4 class="card-title">Parson Street</h4>
+                  <p class="card-text">15 minute NO&#8322 average: <b>{{ airdata['Parson St']['NO215m'] }} &#181g/m&#179</b></p>
+                  <p class="card-text {% if 'Parson St' in areas and over200['Parson St'] %} text-warning {% elif over200['Parson St'] %}text-danger{% endif %}" {% if over200['Parson St'] %}  data-toggle="tooltip" data-placement="bottom" title="Over the EU legal limit of 200 &#181g/m&#179 at a residential facade"{% endif %}>Peak average NO&#8322 value in 24 hour window: <b>{{ airdata['Parson St']['NO224h'] }} &#181g/m&#179</b>
+                  {% if over200['Parson St'] %}
+                    <span class="fa fa-exclamation-circle" aria-hidden="true"></span>
+                  {% endif %}
+                  </p>
                 </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card mb-4 box-shadow">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
-                <div class="card-body">
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <div class="card-footer">
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                      <a href='{{url[0]}}{{urlcodes['Parson St']}}' class="btn btn-sm btn-outline-secondary">Source</a>
+                      <a href='{{url[1]}}{{urlcodes['Parson St']}}' class="btn btn-sm btn-outline-secondary">Location</a>
                     </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <div class="card mb-4 box-shadow">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
-                <div class="card-body">
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card mb-4 box-shadow">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
-                <div class="card-body">
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card mb-4 box-shadow">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
-                <div class="card-body">
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <div class="card mb-4 box-shadow">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
-                <div class="card-body">
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card mb-4 box-shadow">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
-                <div class="card-body">
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card mb-4 box-shadow">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
-                <div class="card-body">
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
+                    <small class="text-muted">Scraped {{ ((time - airdata['Parson St']['time']) // 60 % 60)|round|int }}  mins ago</small>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+            
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card mb-4 box-shadow">
+                <!--<img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">-->
+                  {{
+                    googlemap(
+                        identifier="brisdepot-map",
+                        lat=51.4418,
+                        lng=-2.5599,
+                        zoom_control=False,
+                        maptype_control=False,
+                        scale_control=False,
+                        streetview_control=False,
+                        rotate_control=False,
+                        fullscreen_control=False,
+                        markers=[(51.4418, -2.5599)]
+                    )
+                  }}
+                <div class="card-body {% if 'Bristol Depot' in areas %}bg-danger text-white{% endif %}">
+                  <h4 class="card-title">Brislington Depot</h4>
+                  <p class="card-text">15 minute NO&#8322 average: <b>{{ airdata['Bristol Depot']['NO215m'] }} &#181g/m&#179</b></p>
+                  <p class="card-text {% if 'Bristol Depot' in areas and over200['Bristol Depot'] %} text-warning {% elif over200['Bristol Depot'] %}text-danger{% endif %}" {% if over200['Bristol Depot'] %}  data-toggle="tooltip" data-placement="bottom" title="Over the EU legal limit of 200 &#181g/m&#179 at a residential facade"{% endif %}>Peak average NO&#8322 value in 24 hour window: <b>{{ airdata['Bristol Depot']['NO224h'] }} &#181g/m&#179</b>
+                  {% if over200['Bristol Depot'] %}
+                    <span class="fa fa-exclamation-circle" aria-hidden="true"></span>
+                  {% endif %}
+                  </p>
+                </div>
+                <div class="card-footer">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <a href='{{url[0]}}{{urlcodes['Bristol Depot']}}' class="btn btn-sm btn-outline-secondary">Source</a>
+                      <a href='{{url[1]}}{{urlcodes['Bristol Depot']}}' class="btn btn-sm btn-outline-secondary">Location</a>
+                    </div>
+                    <small class="text-muted">Scraped {{ ((time - airdata['Bristol Depot']['time']) // 60 % 60)|round|int }}  mins ago</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card mb-4 box-shadow">
+                <!--<img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">-->
+                  {{
+                    googlemap(
+                        identifier="fishponds-map",
+                        lat=51.47805,
+                        lng=-2.5352,
+                        zoom_control=False,
+                        maptype_control=False,
+                        scale_control=False,
+                        streetview_control=False,
+                        rotate_control=False,
+                        fullscreen_control=False,
+                        markers=[(51.47805, -2.5352)]
+                    )
+                  }}
+                <div class="card-body {% if 'Fishponds' in areas %}bg-danger text-white{% endif %}">
+                  <h4 class="card-title">Fishponds</h4>
+                  <p class="card-text">15 minute NO&#8322 average: <b>{{ airdata['Fishponds']['NO215m'] }} &#181g/m&#179</b></p>
+                  <p class="card-text {% if 'Fishponds' in areas and over200['Fishponds'] %} text-warning {% elif over200['Fishponds'] %}text-danger{% endif %}" {% if over200['Fishponds'] %}  data-toggle="tooltip" data-placement="bottom" title="Over the EU legal limit of 200 &#181g/m&#179 at a residential facade"{% endif %}>Peak average NO&#8322 value in 24 hour window: <b>{{ airdata['Fishponds']['NO224h'] }} &#181g/m&#179</b>
+                  {% if over200['Fishponds'] %}
+                    <span class="fa fa-exclamation-circle" aria-hidden="true"></span>
+                  {% endif %}
+                  </p>
+                </div>
+                <div class="card-footer">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <a href='{{url[0]}}{{urlcodes['Fishponds']}}' class="btn btn-sm btn-outline-secondary">Source</a>
+                      <a href='{{url[1]}}{{urlcodes['Fishponds']}}' class="btn btn-sm btn-outline-secondary">Location</a>
+                    </div>
+                    <small class="text-muted">Scraped {{ ((time - airdata['Fishponds']['time']) // 60 % 60)|round|int }}  mins ago</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-body">
+                  <h2 class="card-title" id="choking?">Choking?</h2>
+                  <p class="card-text">An area is classed as <em>choking</em> if the current 15 minute average NO<sub>2</sub> value is greater than the <a href='http://ec.europa.eu/environment/air/quality/standards.htm'>annual mean legal limit set by the EU of 40 &#181g/m&#179</a> and as stated in the <a href='http://www.who.int/mediacentre/factsheets/fs313/en/'>WHO guidelines</a>. It's my own term to avoid saying that it is <em>illegal</em> but is trending that way.</p>
+                </div>
+                <div class="card-body">
+                  <h2 class="card-title" id="about">About</h2>
+                  <p class="card-text">I created this site to highlight the problem of air pollution in Bristol and bring the little known air quality data collection provided by the council into the limelight.</p>
+                  <p class="card-text">Air pollution is considered the largest environmental cause of disease and death in the World and yet is largely sidelined by Governments and citizens <a href='http://www.thelancet.com/commissions/pollution-and-health'>[1]</a>. It's the second biggest killer of people in the UK after smoking, relating to 8% (~50,000) of all deaths <a href='http://www.independent.co.uk/environment/pollution-air-clean-water-vehicles-diesel-car-tax-lancet-report-deaths-fatal-disease-a8009751.html'>[2]</a>. Media reporting of events is inversely proportionate to frequency (it's <em>news</em> after all), so air pollution doesn't get headlines due to the unfortunate fact that it is common place, invisible and we're all used to it. I want this site to bring it attention in an easy to understand way.</p>
+                  <p class="card-text">Bristol levels are some of the worst in the country and frequently break the EU legal levels we have agreed to meet, resulting in fines <a href='https://www.bristol.gov.uk/documents/20182/32675/Air+Quality+Annual+Status+Report+ASR+Report+2017/9c167d10-1fef-bf3b-15eb-fa07d9e13f9d'>[3]</a>. As a Bristolian living in Totterdown, who walks through many of the hotspots (they are hard to avoid!) on a daily basis, it is a problem close to me and one I want to do what I can to address. Whether you agree with the methods of relating deaths to air pollution or not, you cannot discount the smell, taste and overwhelming congestion around Bristol.
+                  <h4 class="card-title">That's Great, But How Does This Help?</h4>
+                  <p class="card-text">As an engineer, I'm using what skills I have to available to me as an individual to hopefully engage others - Hacktivism if you will. Sure I could try and invent a miracle air pollution filter that could hang over Bristol but that wouldn't be a weekend project! The point is that if the mindsets of people can change to one of understanding the perpetual background treat, then changes that are required to promote reduction in air pollution will be more welcomed.
+                  <h4 class="card-title">What Can We Do About It?</h4>
+                  <p class="card-text">The majority of harmful air pollution (Nitrous Dioxide) caused in developed cities like Bristol is from combustion engines, mostly from diesel. Reduction in car use is a great way to reduce these levels. One great thing about Bristol is that most places are within short walking distance - try walking and you might be surprised how little time it takes to get places. Additionally, cycling and use of public transport are other great alternatives. Congestion charging is currently unpopular but is it is proven method in the reduction of pollution levels <a href='https://www.theguardian.com/environment/2017/jul/26/the-governments-air-pollution-plan-is-a-beautiful-smokescreen'>[4]</a>. Local governments will not act with decisive methods like this until the people see fixing the problem as a priority and understand that changes in lifestyle will be required. 
+                  <p class="card-text">Too often the outcome of the congestion problem is to build more roads but this only results in more traffic and pollution, not a easing of congestion. There are many other great benefits to a city from reduced car use and the return of the public space that has been eroded by roads. Electric cars are a solution to un-contained emissions in cities but we are in danger of missing a valuable opportunity to improve quality of life if we just see them as a solution to this single problem; disregarding obesity, social cohesion, etc. This is in danger of becoming a ramble but have a view of the video below if you want to hear about Barcelona's interesting approach.</p>
+                  <div class="col-md-6 offset-md-3 embed-responsive mt-4 mb-4 embed-responsive-16by9">
+                    <iframe src="https://www.youtube.com/embed/ZORzsubQA_M" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                  </div>
+                  <h4 class="card-title">How Does It Work?</h4>
+                  <p class="card-text">A Python script <a href='https://en.wikipedia.org/wiki/Web_scraping'>scrapes</a> the air pollution figures from each of the four monitoring stations made public by Bristol City Council on their <a href='http://www.bristol.airqualitydata.com/'>Bristol Air Quaility Data</a> website, every 15 minutes. Basically, this means my Python script is <em>viewing</em> that website everytime the data updates and extracting the air pollution figures from it. The data is then rendered into this web page via a <a href='http://flask.pocoo.org/'>Flask</a> web app.</p>
+                  <p class="card-text">If operator of the site is reading this and worried about undue strain on their resources, don't worry, the result is cached so that a single request is made at most every 15 minutes, rather than each time a user requests this page. I hope that this page is welcomed, I had a long hard read of the <a href='http://www.bristol.airqualitydata.com/cgi-bin/page.cgi?1003'>legal section</a> but saw nothing of note! I talked to one of monitoring station maintainers at the Totterdown Art Trail and he mentioned an API would be coming soon, it would be useful if I could get information on this and transition the site to it, rather than rely on scrapping.
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -215,8 +280,8 @@
         <p class="float-right">
           <a href="#">Back to top</a>
         </p>
-        <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-        <p>New to Bootstrap? <a href="../../">Visit the homepage</a> or read our <a href="../../getting-started/">getting started guide</a>.</p>
+        <p>This website uses data from the <a href='http://www.bristol.airqualitydata.com/'>Bristol Air Quaility Data</a> website but is in no way affiliated with it or with Bristol City Council.</p>
+        <small>2018 <a href="https://www.jbrengineering.co.uk">JBR Engineering Research Ltd</a>. Running Python Flask with a Bootstrap template - see the source.</small>
       </div>
     </footer>
 
@@ -228,5 +293,10 @@
     <script src="static/popper.min.js"></script>
     <script src="static/bootstrap.min.js"></script>
     <script src="static/holder.min.js"></script>
+    <script>
+      $(document).ready(function(){
+          $('[data-toggle="tooltip"]').tooltip();
+      });
+    </script>
   </body>
 </html>

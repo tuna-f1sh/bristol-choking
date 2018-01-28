@@ -11,6 +11,7 @@ flask = "*"
 numpy = "*"
 "bs4" = "*"
 requests = "*"
+flask-googlemaps = "*"
 
 
 [dev-packages]
