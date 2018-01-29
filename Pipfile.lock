@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "605086d072c813aa34a882de895cd8b52d17be2fb0b40a3f344db09f7ad470b1"
+            "sha256": "2496730fd7c100ccc1aeec7bbc026eba36a95860179efa5a8f41d0f21048b3d4"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -18,7 +18,7 @@
         },
         "pipfile-spec": 6,
         "requires": {
-            "python_version": "3.6.4"
+            "python_version": "3.6"
         },
         "sources": [
             {
@@ -36,6 +36,13 @@
                 "sha256:808b6ac932dccb0a4126558f7dfdcf41710dd44a4ef497a0bb59a77f9f078e89"
             ],
             "version": "==4.6.0"
+        },
+        "boto": {
+            "hashes": [
+                "sha256:13be844158d1bd80a94c972c806ec8381b9ea72035aa06123c5db6bc6a6f3ead",
+                "sha256:deb8925b734b109679e3de65856018996338758f4b916ff4fe7bb62b6d7000d1"
+            ],
+            "version": "==2.48.0"
         },
         "bs4": {
             "hashes": [

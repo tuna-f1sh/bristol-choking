@@ -4,6 +4,7 @@ import airquality
 from flask import Flask, url_for, render_template
 import configparser
 from flask_googlemaps import GoogleMaps
+from boto.s3.connection import S3Connection
 
 
 app = Flask(__name__)
@@ -16,7 +17,8 @@ if ( os.path.isfile(os.path.join(os.path.abspath(os.path.dirname(__file__)), '.e
     # Initialize the extension
     GoogleMaps(app, key=config['API']['GOOGLE_MAPS'])
 else:
-    GoogleMaps(app, key=os.environ('GOOGLE_MAPS'))
+    gmkey = S3Connection(os.environ['GOOGLE_MAPS'])
+    GoogleMaps(app, key=gmkey)
 
 
 def get_data():
