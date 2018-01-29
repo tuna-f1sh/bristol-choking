@@ -8,12 +8,15 @@ from flask_googlemaps import GoogleMaps
 
 app = Flask(__name__)
 
-# Load API key from .env
-config = configparser.ConfigParser()
-config.read(os.path.join(os.path.abspath(os.path.dirname(__file__)), '.env'))
+# Load API key from .env if exists
+if ( os.path.isfile(os.path.join(os.path.abspath(os.path.dirname(__file__)), '.env')) ):
+    config = configparser.ConfigParser()
+    config.read(os.path.join(os.path.abspath(os.path.dirname(__file__)), '.env'))
 
-# Initialize the extension
-GoogleMaps(app, key=config['API']['GOOGLE_MAPS'])
+    # Initialize the extension
+    GoogleMaps(app, key=config['API']['GOOGLE_MAPS'])
+else:
+    GoogleMaps(app, key=os.environ('GOOGLE_MAPS'))
 
 
 def get_data():
@@ -42,6 +45,7 @@ def get_data():
     get_data.over200 = over200
 
     return air_data, over40, over200
+
 
 @app.route("/")
 def choking():
