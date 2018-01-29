@@ -4,21 +4,20 @@ import airquality
 from flask import Flask, url_for, render_template
 import configparser
 from flask_googlemaps import GoogleMaps
-from boto.s3.connection import S3Connection
 
 
 app = Flask(__name__)
+ISPROD = os.environ.get('IS_HEROKU', None)
 
 # Load API key from .env if exists
-if ( os.path.isfile(os.path.join(os.path.abspath(os.path.dirname(__file__)), '.env')) ):
+if ( os.path.isfile(os.path.join(os.path.abspath(os.path.dirname(__file__)), '.env'))):
     config = configparser.ConfigParser()
     config.read(os.path.join(os.path.abspath(os.path.dirname(__file__)), '.env'))
 
     # Initialize the extension
     GoogleMaps(app, key=config['API']['GOOGLE_MAPS'])
 else:
-    gmkey = S3Connection(os.environ['GOOGLE_MAPS'])
-    GoogleMaps(app, key=gmkey)
+    GoogleMaps(app, key=os.environ.get('GOOGLE_MAPS', None))
 
 
 def get_data():
