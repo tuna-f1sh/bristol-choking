@@ -7,7 +7,6 @@ from flask_googlemaps import GoogleMaps
 
 
 app = Flask(__name__)
-ISPROD = os.environ.get('IS_HEROKU', None)
 
 # Load API key from .env if exists
 if ( os.path.isfile(os.path.join(os.path.abspath(os.path.dirname(__file__)), '.env'))):
@@ -17,6 +16,7 @@ if ( os.path.isfile(os.path.join(os.path.abspath(os.path.dirname(__file__)), '.e
     # Initialize the extension
     GoogleMaps(app, key=config['API']['GOOGLE_MAPS'])
 else:
+    print("environ")
     GoogleMaps(app, key=os.environ.get('GOOGLE_MAPS', None))
 
 
