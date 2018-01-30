@@ -68,6 +68,8 @@ def get_air_quality(area='Wells Rd'):
 
 
 def get_air_dict(area='WellsRd', test=False):
+    error = 0
+
     if test:
         values = [randint(1, 150), randint(1, 150), randint(1, 150), randint(1, 150), randint(1, 150), randint(1, 150)]
     else:
@@ -75,6 +77,7 @@ def get_air_dict(area='WellsRd', test=False):
 
     if len(values) < 6:
         values = [0] * 6
+        error = 1
 
     return {'NOx15m': values[NOX[0]],
             'NOx24h': values[NOX[1]],
@@ -82,7 +85,8 @@ def get_air_dict(area='WellsRd', test=False):
             'NO224h': values[NO2[1]],
             'NO15m': values[NO[0]],
             'NO24h': values[NO[1]],
-            'time': time.time()}
+            'time': time.time(),
+            'error': error}
 
 
 def display_air_quality():
