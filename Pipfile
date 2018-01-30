@@ -13,6 +13,7 @@ numpy = "*"
 requests = "*"
 flask-googlemaps = "*"
 boto = "*"
+gunicorn = "*"
 
 
 [dev-packages]
