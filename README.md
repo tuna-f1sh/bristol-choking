@@ -1,6 +1,6 @@
 # About
 
-Source for my web app: [Is Bristol Choking](isbristolchoking.uk). Scrapes air pollution data from
+Source for my web app: [Is Bristol Choking](http://www.isbristolchoking.uk). Scrapes air pollution data from
 the Bristol Air Quality website and displays it on a single page with binary
 yes or no based on the legal limits.
 
@@ -17,4 +17,4 @@ pipenv install
 pipenv run gunicorn app:app
 ```
 
-Visit localhost:8000 to see the site.
+Visit [localhost:8000](http://localhost:8000) to see the site.
