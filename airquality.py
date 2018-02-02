@@ -89,6 +89,20 @@ def get_air_dict(area='WellsRd', test=False):
             'error': error}
 
 
+def get_zeros():
+    values = [0] * 6
+    error = 1
+
+    return {'NOx15m': values[NOX[0]],
+            'NOx24h': values[NOX[1]],
+            'NO215m': values[NO2[0]],
+            'NO224h': values[NO2[1]],
+            'NO15m': values[NO[0]],
+            'NO24h': values[NO[1]],
+            'time': time.time(),
+            'error': error}
+
+
 def display_air_quality():
     print("Getting air quality NO2 levels at Three Lamps Junction...")
     air_data = get_air_quality()

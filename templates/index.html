@@ -295,10 +295,17 @@
     <script>window.jQuery || document.write('<script src="static/jquery-slim.min.js"><\/script>')</script>
     <script src="static/popper.min.js"></script>
     <script src="static/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.min.js"></script>
     <!--<script src="static/holder.min.js"></script>-->
     <script>
       $(document).ready(function(){
           $('[data-toggle="tooltip"]').tooltip();
+          var socket = io.connect('http://' + document.domain + ':' + location.port);
+          socket.emit('ready');
+
+          socket.on('data_loaded', function(data) {
+            console.log(data);
+          });
       });
     </script>
   </body>

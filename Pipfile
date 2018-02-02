@@ -12,8 +12,8 @@ numpy = "*"
 "bs4" = "*"
 requests = "*"
 flask-googlemaps = "*"
-boto = "*"
 gunicorn = "*"
+flask-socketio = "*"
 
 
 [dev-packages]
