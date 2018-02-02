@@ -37,12 +37,12 @@ def get_data():
         over200 = {}
 
     for key in airquality.AREAS:
-        if (time.time() - air_data[key]['time']) > (15 * 60):
-            air_data[key] = airquality.get_air_dict(key, True)
-            if air_data[key]['NO215m'] > airquality.NO2YLM:
-                over40[key] = air_data[key]['NO215m']
-            if air_data[key]['NO224h'] > airquality.NO215LM:
-                over200[key] = air_data[key]['NO224h']
+        # if (time.time() - air_data[key]['time']) > (15 * 60):
+        air_data[key] = airquality.get_air_dict(key, True)
+        if air_data[key]['NO215m'] > airquality.NO2YLM:
+            over40[key] = air_data[key]['NO215m']
+        if air_data[key]['NO224h'] > airquality.NO215LM:
+            over200[key] = air_data[key]['NO224h']
         error = air_data[key]['error']
 
     get_data.air_data = air_data
@@ -76,7 +76,11 @@ def choking():
 def scrape_data():
     print('Page loaded')
     [air_data, over40, over200, err] = get_data()
-    emit('data_loaded', {'data': air_data, 'areas': over40.keys(), 'choking': len(over40), 'time': time.time(), 'over200': over200, 'error': err})
+    names = list(airquality.AREAS)
+    over40 = list(over40.keys())
+    # print(over40)
+    over200 = list(over200.keys())
+    emit('data_loaded', {'air_data': air_data, 'areas': names, 'over40': over40, 'over200': over200, 'time': time.time(), 'choking': len(over40), 'error': err})
 
 with app.test_request_context():
     url_for('static', filename='style.css')
