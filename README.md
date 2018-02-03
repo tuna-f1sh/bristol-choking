@@ -8,7 +8,16 @@ I rolled this together in a couple of mornings and free hours to learn Flask
 and Python web app technologies. For this reason it is fairly rough around the
 edges.
 
-# Run
+## Systems Used
+
+* [Flask](http://flask.pocoo.org/)
+* [Bootstrap 4](https://v4-alpha.getbootstrap.com/) - example 'album' used as a template.
+* [Flask SocketIO](https://flask-socketio.readthedocs.io/en/latest/) - for
+  async scraping on user loading page.
+* [CSS Coding Animation](https://github.com/Chippd/css_loading_animation) -
+  used for loading placeholder.
+
+## Run
 
 Create .env file with Google Maps API key or set environment variable.
 

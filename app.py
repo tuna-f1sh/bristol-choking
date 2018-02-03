@@ -28,6 +28,7 @@ def get_data():
         air_data = get_data.air_data
         over40 = get_data.over40
         over200 = get_data.over200
+        error = get_data.error
     except AttributeError:
         air_data = {'Wells Rd': {'time': 0, 'error': 1},
                     'Bristol Depot': {'time': 0, 'error': 1},
@@ -35,21 +36,22 @@ def get_data():
                     'Fishponds': {'time': 0, 'error': 1}}
         over40 = {}
         over200 = {}
+        error = 0
 
     for key in airquality.AREAS:
-        # if (time.time() - air_data[key]['time']) > (15 * 60):
-        air_data[key] = airquality.get_air_dict(key, True)
-        if air_data[key]['NO215m'] > airquality.NO2YLM:
-            over40[key] = air_data[key]['NO215m']
-        if air_data[key]['NO224h'] > airquality.NO215LM:
-            over200[key] = air_data[key]['NO224h']
-        error = air_data[key]['error']
+        if (time.time() - air_data[key]['time']) > (15 * 60):
+            air_data[key] = airquality.get_air_dict(key, False)
+            if air_data[key]['NO215m'] > airquality.NO2YLM:
+                over40[key] = air_data[key]['NO215m']
+            if air_data[key]['NO224h'] > airquality.NO215LM:
+                over200[key] = air_data[key]['NO224h']
+            error = air_data[key]['error']
 
     get_data.air_data = air_data
     get_data.over40 = over40
     get_data.over200 = over200
+    get_data.error = error
 
-    print("Error status: " + str(error))
     return air_data, over40, over200, error
 
 
@@ -78,7 +80,7 @@ def scrape_data():
     [air_data, over40, over200, err] = get_data()
     names = list(airquality.AREAS)
     over40 = list(over40.keys())
-    # print(over40)
+    print(over40)
     over200 = list(over200.keys())
     emit('data_loaded', {'air_data': air_data, 'areas': names, 'over40': over40, 'over200': over200, 'time': time.time(), 'choking': len(over40), 'error': err})
 
