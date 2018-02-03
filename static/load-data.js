@@ -7,7 +7,6 @@ $(document).ready(function(){
   socket.emit('ready');
 
   socket.on('data_loaded', function(json) {
-    $("div.album").hide();
     console.log(json);
     if (!json.error) {
       if (json.choking) {
