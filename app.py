@@ -44,7 +44,7 @@ def get_data():
         air_data = {}
         error = 0
         for key in airquality.AREAS:
-            air_data[key] = airquality.get_air_dict(key, True)
+            air_data[key] = airquality.get_air_dict(key, False)
             if air_data[key]['NO215m'] > airquality.NO2YLM:
                 over40[key] = air_data[key]['NO215m']
             if air_data[key]['NO224h'] > airquality.NO215LM:
