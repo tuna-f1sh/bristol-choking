@@ -7,6 +7,7 @@ $(document).ready(function(){
   socket.emit('ready');
 
   socket.on('data_loaded', function(json) {
+    $("div.album").hide();
     console.log(json);
     if (!json.error) {
       if (json.choking) {
@@ -60,7 +61,12 @@ $(document).ready(function(){
     }
 
     $("div.album").removeClass("size-hide");
-    $("div.album").show();
-    $("div.album").animate({ opacity: 1 }, 800);
+    // $("div.album").animate({ opacity: 1 }, 400);
+    $("div.album").show(400, function() {
+    google.maps.event.trigger(mfishponds, 'resize')
+    google.maps.event.trigger(mwellsrd, 'resize')
+    google.maps.event.trigger(mbrisdepot, 'resize')
+    google.maps.event.trigger(mparsonst, 'resize')
+    });
   });
 });

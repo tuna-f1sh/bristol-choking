@@ -7,9 +7,9 @@
   display: none;
 }
 
-.album {
-  opacity: 0.2;
-}
+/* .album { */
+/*   opacity: 0.2; */
+/* } */
 
 .size-hide {
   position: absolute !important;
