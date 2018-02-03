@@ -59,6 +59,8 @@ $(document).ready(function(){
       }
     }
 
-    $("div.album").show("fast");
+    $("div.album").removeClass("size-hide");
+    $("div.album").show();
+    $("div.album").animate({ opacity: 1 }, 800);
   });
 });

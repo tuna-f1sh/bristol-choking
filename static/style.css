@@ -3,8 +3,17 @@
   width: 100% !important;
 }
 
-.album, .status-heading {
+.status-heading {
   display: none;
+}
+
+.album {
+  opacity: 0.2;
+}
+
+.size-hide {
+  position: absolute !important;
+  left: 100% !important;
 }
 
 :root {
