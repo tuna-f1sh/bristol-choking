@@ -38,9 +38,13 @@ def get_data():
         over200 = {}
         error = 0
 
-    for key in airquality.AREAS:
-        if (time.time() - air_data[key]['time']) > (15 * 60):
-            air_data[key] = airquality.get_air_dict(key, False)
+    if (time.time() - air_data['Wells Rd']['time']) > (15 * 60):
+        over40 = {}
+        over200 = {}
+        air_data = {}
+        error = 0
+        for key in airquality.AREAS:
+            air_data[key] = airquality.get_air_dict(key, True)
             if air_data[key]['NO215m'] > airquality.NO2YLM:
                 over40[key] = air_data[key]['NO215m']
             if air_data[key]['NO224h'] > airquality.NO215LM:

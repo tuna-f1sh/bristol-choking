@@ -60,7 +60,6 @@ $(document).ready(function(){
       }
     }
 
-    $("div.album").removeClass("size-hide");
     // $("div.album").animate({ opacity: 1 }, 400);
     $("div.album").show(400, function() {
     google.maps.event.trigger(mfishponds, 'resize')
