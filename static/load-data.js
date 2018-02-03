@@ -12,7 +12,11 @@ $(document).ready(function(){
       if (json.choking) {
         $(".jumbotron-heading").text("Yes");
         $(".lead").text(json.over40.join(", "))
-        $(".lead").append(" are choking")
+        if (json.over40.length > 1) {
+          $(".lead").append(" are choking")
+        } else {
+          $(".lead").append(" is choking")
+        }
         changeFavicon('static/favicon-choking.ico');
       } else {
         $(".jumbotron-heading").text("No");
