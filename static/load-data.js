@@ -20,7 +20,7 @@ $(document).ready(function(){
         changeFavicon('static/favicon-choking.ico');
       } else {
         $(".jumbotron-heading").text("No");
-        $(".lead").text("Bristol is doing OK")
+        $(".lead").text("Bristol is doing OK but could do better")
         changeFavicon('static/favicon-ok.ico');
       }
     } else {
