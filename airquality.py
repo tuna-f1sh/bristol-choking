@@ -69,7 +69,7 @@ def get_air_quality(area='Wells Rd'):
         try:
             values.append(float(str_value))
         except ValueError:
-            values.append(float(0.0))
+            values.append(float(-1.0))
 
     return values
 
@@ -83,7 +83,7 @@ def get_air_dict(area='WellsRd', test=False):
         values = get_air_quality(area)
 
     if len(values) < 6:
-        values = [0] * 6
+        values = [-1] * 6
         error = 1
 
     return {'NOx15m': values[NOX[0]],
