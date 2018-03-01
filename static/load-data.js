@@ -2,11 +2,36 @@ function changeFavicon(src) {
   $('link[rel="shortcut icon"]').attr('href', src)
 }
 
+function showTimeout() {
+    $(".jumbotron-heading").text("Opps");
+    $(".lead").text("Something went wrong! Is the Bristol Air Quality site up?")
+    $(".loader-container").hide();
+    $(".scraping-heading").hide();
+    $(".status-heading").show();
+
+    var cards = ["#wells-rd", "#parson-st", "#bristol-depot", "#fishponds"];
+    var names = ["Wells Rd", "Parson St", "Bristol Depot", "Fishponds"];
+
+    for (i = 0; i < cards.length; i++) {
+      $(cards[i]).find('span.no2-15m').addClass("text-muted");
+      $(cards[i]).find('span.no2-24h').addClass("text-muted");
+    }
+
+    $("div.album").show(400, function() {
+      google.maps.event.trigger(mfishponds, 'resize')
+      google.maps.event.trigger(mwellsrd, 'resize')
+      google.maps.event.trigger(mbrisdepot, 'resize')
+      google.maps.event.trigger(mparsonst, 'resize')
+    });
+}
+
 $(document).ready(function(){
   var socket = io.connect('http://' + document.domain + ':' + location.port);
   socket.emit('ready');
+  scrapeTimeout = setTimeout(showTimeout, 10000);
 
   socket.on('data_loaded', function(json) {
+    clearTimeout(scrapeTimeout);
     console.log(json);
     if (!json.error) {
       if (json.choking) {
@@ -39,9 +64,10 @@ $(document).ready(function(){
         if (json.air_data[names[i]].NO215m  == -1) {
           $(cards[i]).find('span.no2-15m').text('-')
           $(cards[i]).find('span.no2-15m').addClass("text-muted");
-          $(".lead").append(" Site: ")
-          $(".lead").append(names[i])
-          $(".lead").append(" is not loading.")
+          $(".lead-post").append("Site: ")
+          $(".lead-post").append(names[i])
+          $(".lead-post").append(" is not loading. ")
+          $(".lead-post").show()
         } else {
           $(cards[i]).find('span.no2-15m').text(json.air_data[names[i]].NO215m)
         }
