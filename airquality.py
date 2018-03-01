@@ -62,7 +62,7 @@ def get_air_quality(area='Wells Rd'):
     # readings have the units µg/m3
     get_air_quality.readings = soup.find_all(text=re.compile('µg/m3'))
 
-    values = [float(x.split()[0]) for x in get_air_quality.readings]
+    values = [float(x.split()[0]) for x in get_air_quality.readings if isinstance(x.split()[0], float)]
 
     return values
 
