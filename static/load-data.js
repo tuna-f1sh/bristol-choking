@@ -36,8 +36,18 @@ $(document).ready(function(){
 
     if (!json.error) {
       for (i = 0; i < cards.length; i++) {
-        $(cards[i]).find('span.no2-15m').text(json.air_data[names[i]].NO215m)
-        $(cards[i]).find('span.no2-24h').text(json.air_data[names[i]].NO224h)
+        if (json.air_data[names[i].NO215m] != 0) {
+          $(cards[i]).find('span.no2-15m').text(json.air_data[names[i]].NO215m)
+        } else {
+          $(cards[i]).find('span.no2-15m').text('-')
+          $(cards[i]).find('span.no2-15m').addClass("text-muted");
+        }
+        if (json.air_data[names[i].NO224h] != 0) {
+          $(cards[i]).find('span.no2-24h').text(json.air_data[names[i]].NO224h)
+        } else {
+          $(cards[i]).find('span.no2-24h').text('-')
+          $(cards[i]).find('span.no2-24h').addClass("text-muted");
+        }
         var minutes = Math.round(((json.time - json.air_data[names[i]].time) / 60) % 60)
         $(cards[i]).find('span.scrape-time').text(minutes);
         // if in area
